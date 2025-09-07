@@ -1,0 +1,596 @@
+<!-- Formulaire de profil investisseur -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binance forex Investissement</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center py-8 animate-gradient-fade">
+  <!-- Notification dynamique, fixée en haut -->
+  <div id="notifBox" class="fixed top-0 left-0 w-full flex items-center gap-3 px-6 py-4 z-30 rounded-b-2xl shadow-lg bg-gradient-to-r from-yellow-400/90 via-yellow-300/90 to-yellow-500/90 border-b border-yellow-400/30 animate-fade-in">
+    <i id="notifIcon" class="fas fa-bell text-black text-2xl animate-pulse"></i>
+    <span id="notifText" class="text-black font-medium text-lg"></span>
+  </div>
+  <div class="pt-24 w-full flex flex-col items-center">
+    <form id="profilForm" class="w-full max-w-lg bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 rounded-3xl shadow-2xl px-8 py-10 animate-fade-in border border-yellow-400/50 backdrop-blur-md">
+      <h2 class="text-3xl font-bold text-center text-yellow-400 mb-10 flex items-center justify-center gap-3 drop-shadow-lg">
+        <i class="fas fa-user-shield text-yellow-400 animate-bounce"></i> Binance forex Investissement
+      </h2>
+      <div class="form-group mb-6">
+        <label for="nom" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-user mr-2"></i>Nom complet</label>
+        <input type="text" id="nom" required class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"/>
+      </div>
+      <div class="form-group mb-6">
+        <label for="pays" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-flag mr-2"></i>Pays</label>
+        <select id="pays" required class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+          <option value="">Sélectionnez votre pays</option>
+          <option value="Congo (RDC)" data-indicatif="+243">Congo (RDC)</option>
+          <option value="Côte d'Ivoire" data-indicatif="+225">Côte d'Ivoire</option>
+          <option value="Sénégal" data-indicatif="+221">Sénégal</option>
+          <option value="France" data-indicatif="+33">France</option>
+          <option value="Cameroun" data-indicatif="+237">Cameroun</option>
+          <option value="Bénin" data-indicatif="+229">Bénin</option>
+          <option value="Togo" data-indicatif="+228">Togo</option>
+          <option value="Burkina Faso" data-indicatif="+226">Burkina Faso</option>
+          <option value="Mali" data-indicatif="+223">Mali</option>
+          <option value="Guinée" data-indicatif="+224">Guinée</option>
+          <option value="République dominicaine" data-indicatif="+1">République dominicaine</option>
+          <option value="Algérie" data-indicatif="+213">Algérie</option>
+          <option value="Tunisie" data-indicatif="+216">Tunisie</option>
+          <option value="Haïti" data-indicatif="+509">Haïti</option>
+          <option value="Gabon" data-indicatif="+241">Gabon</option>
+          <option value="République du Congo" data-indicatif="+242">République du Congo</option>
+          <option value="Tchad" data-indicatif="+235">Tchad</option>
+          <option value="Guinée équatoriale" data-indicatif="+240">Guinée équatoriale</option>
+          <option value="République centrafricaine" data-indicatif="+236">République centrafricaine</option>
+          <option value="Autre" data-indicatif="">Autre</option>
+        </select>
+      </div>
+      <div class="form-group mb-6">
+        <label for="indicatif" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-phone mr-2"></i>Indicatif téléphonique</label>
+        <input type="text" id="indicatif" placeholder="+243" required readonly class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-gray-300 focus:outline-none"/>
+      </div>
+      <div class="form-group mb-6">
+        <label for="telephone" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-mobile-alt mr-2"></i>Téléphone</label>
+        <input type="text" id="telephone" required class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"/>
+      </div>
+      <div class="form-group mb-6">
+        <label for="paiement" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-wallet mr-2"></i>Moyen de paiement</label>
+        <select id="paiement" required class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+          <option value="">Sélectionnez</option>
+          <option value="Mobile Money">Mobile Money</option>
+        </select>
+      </div>
+      <div class="form-group mb-6" id="tempsInvestissementGroup" style="display: none;">
+        <label for="tempsInvestissement" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-clock mr-2"></i>Temps d'investissement</label>
+        <select id="tempsInvestissement" class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+          <option value="">Sélectionnez la durée</option>
+          <option value="1H">1 Heure</option>
+          <option value="2H">2 Heures</option>
+        </select>
+      </div>
+      <div class="form-group mb-6">
+        <label for="montant" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-coins mr-2"></i>Montant investi</label>
+        <select id="montant" required class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+          <option value="">Sélectionnez un montant</option>
+        </select>
+      </div>
+      <div class="form-group mb-6">
+        <label for="devise" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-money-bill-wave mr-2"></i>Devise</label>
+        <input type="text" id="devise" value="FCFA" readonly class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-gray-300 focus:outline-none"/>
+      </div>
+      <div class="form-group mb-10">
+        <label for="revenu" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-chart-line mr-2"></i>Revenu  attendu</label>
+        <div class="relative">
+          <input type="number" id="revenu" required readonly class="w-full px-4 py-2 rounded-lg border border-yellow-400 bg-yellow-100 text-yellow-800 font-bold focus:outline-none animate-pulse transition-shadow shadow-inner shadow-yellow-200"/>
+          <i class="fas fa-check-circle absolute right-3 top-1/2 -translate-y-1/2 text-green-500 animate-fade-in"></i>
+        </div>
+      </div>
+      <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-black font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-200 hover:from-yellow-600 hover:to-yellow-400 flex items-center justify-center gap-2">
+        <i class="fas fa-save"></i> Enregistrer
+      </button>
+      <div class="success text-yellow-400 text-center mt-6 font-semibold text-lg animate-fade-in" id="successMsg"></div>
+    </form>
+  </div>
+  <script>
+    // Instructions aléatoires pour l'utilisateur
+    const instructions = [
+      { icon: "fa-lightbulb", color: "text-yellow-400", text: "Astuce : Vérifiez bien votre numéro avant de valider !" },
+      { icon: "fa-shield-alt", color: "text-green-500", text: "Sécurité : Vos données restent confidentielles." },
+      { icon: "fa-info-circle", color: "text-blue-400", text: "Info : Choisissez le montant pour voir le revenu attendu." },
+      { icon: "fa-mobile-alt", color: "text-green-400", text: "Mobile Money : Sélectionnez le mode adapté à votre pays." },
+      { icon: "fa-flag", color: "text-blue-500", text: "Pensez à choisir le bon pays pour l’indicatif automatique." },
+      { icon: "fa-coins", color: "text-yellow-500", text: "Investissez selon vos moyens, le revenu s’ajuste automatiquement !" }
+    ];
+    function randomInstruction() {
+      const pick = instructions[Math.floor(Math.random() * instructions.length)];
+      document.getElementById('notifIcon').className = `fas ${pick.icon} ${pick.color} text-2xl animate-pulse`;
+      document.getElementById('notifText').textContent = pick.text;
+    }
+    randomInstruction();
+    setInterval(randomInstruction, 5000);
+
+    // Devise par pays (ajout Haïti et pays Afrique centrale)
+    const countryCurrency = {
+      "Congo (RDC)": "USD",
+      "Côte d'Ivoire": "FCFA",
+      "Sénégal": "FCFA",
+      "France": "EUR",
+      "Cameroun": "FCFA",
+      "Bénin": "FCFA",
+      "Togo": "FCFA",
+      "Burkina Faso": "FCFA",
+      "Mali": "FCFA",
+      "Guinée": "FCFA",
+      "République dominicaine": "DOP",
+      "Algérie": "DZD",
+      "Tunisie": "TND",
+      "Haïti": "HTG",
+      "Gabon": "FCFA",
+      "République du Congo": "USD",
+      "Tchad": "FCFA",
+      "Guinée équatoriale": "FCFA",
+      "République centrafricaine": "FCFA",
+      "Autre": "USD"
+    };
+
+    // Grilles tarifaires par pays (ajout Haïti et pays Afrique centrale)
+    const grillesTarifaires = {
+      // FCFA countries (all use the same new grid)
+      "Côte d'Ivoire": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Congo (RDC)": {
+        "1H": [
+          { montant: 30, revenu: 250 },
+          { montant: 40, revenu: 350 },
+          { montant: 50, revenu: 400 },
+          { montant: 100, revenu: 750 },
+          { montant: 150, revenu: 900 },
+          { montant: 200, revenu: 1500 },
+          { montant: 250, revenu: 1700 },
+          { montant: 300, revenu: 1800 },
+          { montant: 500, revenu: 3300 },
+          { montant: 750, revenu: 3750 },
+          { montant: 1000, revenu: 4500 },
+          { montant: 1500, revenu: 6000 },
+          { montant: 2000, revenu: 6900 }
+        ],
+        "2H": [
+          { montant: 30, revenu: 350},
+          { montant: 40, revenu: 400},
+          { montant: 50, revenu: 480 },
+          { montant: 100, revenu: 880 },
+          { montant: 150, revenu: 1000 },
+          { montant: 200, revenu: 1650},
+          { montant: 250, revenu: 2850 },
+          { montant: 300, revenu: 2000 },
+          { montant: 500, revenu: 3350 },
+          { montant: 750, revenu: 4000 },
+          { montant: 1000, revenu: 5000 },
+          { montant: 1500, revenu: 6400 },
+          { montant: 2000, revenu: 7100 }
+        ]
+      },
+      "Sénégal": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "France": [
+        { montant: 50, revenu: 55 },
+        { montant: 100, revenu: 112 },
+        { montant: 200, revenu: 230 }
+      ],
+      "Cameroun": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Bénin": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Togo": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Burkina Faso": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Mali": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Guinée": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "République dominicaine": [
+        { montant: 5000, revenu: 43000 },
+        { montant: 10000, revenu: 172000 },
+        { montant: 50000, revenu: 430000 },
+        { montant: 100000, revenu: 8600000 },
+        { montant: 150000, revenu: 1290000 },
+        { montant: 200000, revenu: 2580000 }
+      ],
+      "Algérie": [
+        { montant: 1000, revenu: 1100 },
+        { montant: 2000, revenu: 2250 },
+        { montant: 5000, revenu: 5800 }
+      ],
+      "Tunisie": [
+        { montant: 1000, revenu: 1100 },
+        { montant: 2000, revenu: 2250 },
+        { montant: 5000, revenu: 5800 }
+      ],
+      "Haïti": [
+        { montant: 10000, revenu: 120000 },
+        { montant: 15000, revenu: 140000 },
+        { montant: 20000, revenu: 210000 },
+        { montant: 35000, revenu: 325000 },
+        { montant: 50000, revenu: 660000 }
+        
+      ],
+      "Gabon": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "République du Congo": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Tchad": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Guinée équatoriale": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "République centrafricaine": [
+  { montant: 10000, revenu: 80000 },
+  { montant: 15000, revenu: 100000 },
+  { montant: 20000, revenu: 130000 },
+  { montant: 30000, revenu: 210000 },
+  { montant: 50000, revenu: 450000 },
+  { montant: 70000, revenu: 650000 },
+  { montant: 100000, revenu: 900000 },
+  { montant: 200000, revenu: 1100000 },
+  { montant: 300000, revenu: 1300000 },
+  { montant: 500000, revenu: 1800000 },
+  { montant: 1000000, revenu: 4500000 }
+      ],
+      "Autre": [
+        { montant: 100, revenu: 110 },
+        { montant: 200, revenu: 225 },
+        { montant: 500, revenu: 580 }
+      ]
+    };
+
+    // Modes de paiement mobile par pays (ajout Haïti et pays Afrique centrale)
+    const mobileMoneyOptions = {
+      "Congo (RDC)": [
+        { value: "Airtel Money", label: "Airtel Money" },
+        { value: "M-Pesa", label: "M-Pesa" },
+        { value: "Orange Money", label: "Orange Money" }
+      ],
+      "Côte d'Ivoire": [
+        { value: "Orange Money CI", label: "Orange Money" },
+        { value: "MTN Mobile Money CI", label: "MTN Mobile Money" },
+        { value: "Moov Money", label: "Moov Money" }
+      ],
+      "Sénégal": [
+        { value: "Orange Money SN", label: "Orange Money" },
+        { value: "Wave", label: "Wave" },
+        { value: "Free Money", label: "Free Money" }
+      ],
+      "Cameroun": [
+        { value: "MTN Mobile Money CM", label: "MTN Mobile Money" },
+        { value: "Orange Money CM", label: "Orange Money" }
+      ],
+      "Bénin": [
+        { value: "MTN Mobile Money BJ", label: "MTN Mobile Money" },
+        { value: "Moov Money BJ", label: "Moov Money" }
+      ],
+      "Togo": [
+        { value: "TMoney", label: "TMoney" },
+        { value: "Flooz", label: "Flooz" }
+      ],
+      "Burkina Faso": [
+        { value: "Orange Money BF", label: "Orange Money" },
+        { value: "Moov Money BF", label: "Moov Money" }
+      ],
+      "Mali": [
+        { value: "Orange Money ML", label: "Orange Money" },
+        { value: "Malitel Money", label: "Malitel Money" }
+      ],
+      "Guinée": [
+        { value: "Orange Money GN", label: "Orange Money" },
+        { value: "MTN Mobile Money GN", label: "MTN Mobile Money" }
+      ],
+      "République dominicaine": [
+        { value: "Binance", label: "Binance" }
+      ],
+      "Algérie": [
+        { value: "MT Cash", label: "MT Cash" }
+      ],
+      "Tunisie": [
+        { value: "MT Cash", label: "MT Cash" }
+      ],
+      "Haïti": [
+        { value: "MonCash", label: "MonCash" }
+      ],
+      "Gabon": [
+        { value: "Airtel Money GA", label: "Airtel Money" },
+        { value: "Moov Money GA", label: "Moov Money" }
+      ],
+      "République du Congo": [
+        { value: "Airtel Money CG", label: "Airtel Money" },
+        { value: "MTN Mobile Money CG", label: "MTN Mobile Money" }
+      ],
+      "Tchad": [
+        { value: "Airtel Money TD", label: "Airtel Money" }
+      ],
+      "Guinée équatoriale": [
+        { value: "Orange Money GQ", label: "Orange Money" }
+      ],
+      "République centrafricaine": [
+        { value: "Orange Money RCA", label: "Orange Money" }
+      ],
+      "Autre": []
+    };
+
+    document.documentElement.classList.add('scroll-smooth');
+    document.getElementById('pays').addEventListener('change', function() {
+      const selected = this.options[this.selectedIndex];
+      const indicatif = selected.getAttribute('data-indicatif') || '';
+      document.getElementById('indicatif').value = indicatif;
+      document.getElementById('indicatif').readOnly = indicatif !== '';
+      document.getElementById('indicatif').placeholder = indicatif || "+___";
+
+      // Gérer l'affichage du temps d'investissement pour Congo RDC
+      const tempsInvestissementGroup = document.getElementById('tempsInvestissementGroup');
+      const tempsInvestissementSelect = document.getElementById('tempsInvestissement');
+      if (this.value === 'Congo (RDC)') {
+        tempsInvestissementGroup.style.display = 'block';
+        tempsInvestissementSelect.required = true;
+      } else {
+        tempsInvestissementGroup.style.display = 'none';
+        tempsInvestissementSelect.required = false;
+        tempsInvestissementSelect.value = '';
+      }
+
+      // Adapter les moyens de paiement mobile
+      const paiementSelect = document.getElementById('paiement');
+      if (!paiementSelect.dataset.base) {
+        paiementSelect.dataset.base = paiementSelect.innerHTML;
+      }
+      paiementSelect.innerHTML = paiementSelect.dataset.base;
+      const pays = this.value;
+      if (mobileMoneyOptions[pays] && mobileMoneyOptions[pays].length > 0) {
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = "Mobile Money (" + pays + ")";
+        mobileMoneyOptions[pays].forEach(opt => {
+          const option = document.createElement('option');
+          option.value = opt.value;
+          option.textContent = opt.label;
+          optgroup.appendChild(option);
+        });
+        paiementSelect.appendChild(optgroup);
+      }
+
+      // Adapter les montants disponibles
+      updateMontantOptions();
+
+      // Réinitialiser le revenu attendu
+      document.getElementById('revenu').value = '';
+
+      // Définir la devise automatiquement
+      const deviseInput = document.getElementById('devise');
+      deviseInput.value = countryCurrency[pays] || "USD";
+    });
+
+    // Gestionnaire pour le temps d'investissement (Congo RDC)
+    document.getElementById('tempsInvestissement').addEventListener('change', function() {
+      updateMontantOptions();
+      document.getElementById('revenu').value = '';
+    });
+
+    function updateMontantOptions() {
+      const pays = document.getElementById('pays').value;
+      const tempsInvestissement = document.getElementById('tempsInvestissement').value;
+      const montantSelect = document.getElementById('montant');
+      
+      montantSelect.innerHTML = '<option value="">Sélectionnez un montant</option>';
+      
+      if (pays === 'Congo (RDC)' && tempsInvestissement && grillesTarifaires[pays][tempsInvestissement]) {
+        grillesTarifaires[pays][tempsInvestissement].forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.montant;
+          option.textContent = item.montant + ' USD';
+          montantSelect.appendChild(option);
+        });
+      } else if (pays !== 'Congo (RDC)' && grillesTarifaires[pays]) {
+        grillesTarifaires[pays].forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.montant;
+          option.textContent = item.montant;
+          montantSelect.appendChild(option);
+        });
+      }
+    }
+
+    // Affichage automatique du revenu attendu selon le montant choisi
+    document.getElementById('montant').addEventListener('change', function() {
+      const pays = document.getElementById('pays').value;
+      const montant = parseFloat(this.value);
+      const tempsInvestissement = document.getElementById('tempsInvestissement').value;
+      let revenu = '';
+      
+      if (pays === 'Congo (RDC)' && tempsInvestissement && grillesTarifaires[pays][tempsInvestissement]) {
+        const found = grillesTarifaires[pays][tempsInvestissement].find(item => item.montant == montant);
+        if (found) revenu = found.revenu;
+      } else if (pays !== 'Congo (RDC)' && grillesTarifaires[pays]) {
+        const found = grillesTarifaires[pays].find(item => item.montant == montant);
+        if (found) revenu = found.revenu;
+      }
+      
+      document.getElementById('revenu').value = revenu;
+    });
+
+    document.getElementById('profilForm').onsubmit = function(e) {
+      e.preventDefault();
+      const profil = {
+        nom:        document.getElementById('nom').value,
+        pays:       document.getElementById('pays').value,
+        indicatif:  document.getElementById('indicatif').value,
+        telephone:  document.getElementById('telephone').value,
+        paiement:   document.getElementById('paiement').value,
+        montant:    document.getElementById('montant').value,
+        devise:     document.getElementById('devise').value,
+        revenu:     document.getElementById('revenu').value,
+        tempsInvestissement: document.getElementById('tempsInvestissement').value || null
+      };
+      localStorage.setItem('profilInvestisseur', JSON.stringify(profil));
+      document.getElementById('successMsg').textContent = "✅ Profil enregistré !";
+      setTimeout(() => {
+        window.location.href = "protn.html";
+      }, 1200);
+    };
+  </script>
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .animate-fade-in {
+      animation: fade-in 1s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes gradient-fade {
+      0%,100% { background-position: 0% 50%; opacity: 1;}
+      50% { background-position: 100% 50%; opacity: 0.97;}
+    }
+    .animate-gradient-fade {
+      background-size: 200% 200%;
+      animation: gradient-fade 10s ease-in-out infinite;
+    }
+    /* Pour éviter que le formulaire passe sous la notif sur mobile */
+    @media (max-width: 640px) {
+      #notifBox { padding-left: 0.5rem; padding-right: 0.5rem; font-size: 1rem; }
+      .pt-24 { padding-top: 5.5rem; }
+    }
+  </style>
+</body>
+</html>
